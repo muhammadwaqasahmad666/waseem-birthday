@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Waseem Akram 🎂</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;font-family:'Segoe UI',Arial,sans-serif;background:radial-gradient(circle at top,#172554,#020617 75%);color:white;overflow-x:hidden}
+.card{width:100%;max-width:440px;padding:30px 24px;text-align:center;background:rgba(15,23,42,.95);border:1px solid rgba(96,165,250,.6);border-radius:25px;box-shadow:0 0 35px rgba(59,130,246,.25);position:relative;z-index:2;animation:appear 1s ease}
+@keyframes appear{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+.badge{display:inline-block;padding:8px 15px;border-radius:30px;background:#172554;color:#93c5fd;font-size:11px;letter-spacing:2px;margin-bottom:22px;border:1px solid #1e40af}
+h1{font-size:28px;margin-bottom:14px;line-height:1.4}h1 span{color:#60a5fa}
+.subtitle{color:#cbd5e1;font-size:14px;line-height:1.8}
+.gift{font-size:100px;margin:25px 0;display:inline-block;animation:float 2s ease-in-out infinite;filter:drop-shadow(0 0 18px #3b82f6)}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-12px) rotate(5deg)}}
+.gift-heading{font-size:21px;color:#f8fafc;margin-bottom:12px}
+button{width:100%;border:none;padding:16px 12px;margin-top:22px;border-radius:12px;background:linear-gradient(90deg,#2563eb,#9333ea);color:white;font-size:14px;font-weight:bold;cursor:pointer;box-shadow:0 5px 25px rgba(59,130,246,.3);transition:.3s}
+button:hover{transform:scale(1.04);box-shadow:0 0 25px #6366f1}button:disabled{opacity:.7;cursor:wait}
+.footer{margin-top:25px;color:#94a3b8;font-size:12px;line-height:1.8}
+#surprise{display:none}
+.cake{font-size:75px;margin:15px 0;animation:cakePop 1s ease}
+@keyframes cakePop{0%{transform:scale(0)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+#surprise h2{color:#facc15;font-size:27px;margin-bottom:15px}
+.message{line-height:2;color:#e2e8f0;font-size:14px;margin:18px 0}
+.signature{margin-top:22px;padding:14px;background:rgba(30,41,59,.7);border-radius:12px;color:#93c5fd;font-size:13px;line-height:1.8}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+#surpriseButton{background:linear-gradient(90deg,#059669,#0d9488)}
+@media(max-width:380px){.card{padding:25px 17px}h1{font-size:24px}.gift{font-size:85px}.gift-heading{font-size:18px}}
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<div class="card">
+  <div id="welcome">
+    <div class="badge">🎉 SPECIAL BIRTHDAY SURPRISE</div>
+    <h1>Hey, <span>Waseem Akram!</span></h1>
+    <p class="subtitle">I've created something special just for you. 💙<br>Your birthday gift is ready!</p>
+    <div class="gift" id="giftBox">🎁</div>
+    <h2 class="gift-heading">TAKE YOUR BIRTHDAY GIFT!</h2>
+    <p class="subtitle">A little surprise, a lot of happiness.<br>Are you ready to unlock it?</p>
+    <button id="giftButton" onclick="openGift()">🎁 TAKE YOUR BIRTHDAY GIFT</button>
+    <p class="footer">A special surprise created just for you. ❤️</p>
+  </div>
+  <div id="surprise">
+    <div class="badge">🎉 SURPRISE UNLOCKED</div>
+    <div class="cake">🎂</div>
+    <h2>HAPPY BIRTHDAY!</h2>
+    <h1>Waseem Akram ❤️</h1>
+    <p class="message">
+      🎉 Another year, another level unlocked!<br><br>
+      💻 May your life always be bug-free.<br>
+      🚀 May your success reach infinity.<br>
+      ❤️ May your happiness never crash.<br>
+      💰 May your achievements keep multiplying.<br>
+      🌟 May every dream compile successfully!
+    </p>
+    <p class="message">May Allah bless you with good health, endless happiness, success, and countless beautiful moments in life. ❤️<br><br>Keep smiling, keep shining, and keep winning!</p>
+    <h2 style="font-size:21px">HAVE AN AMAZING YEAR! 🎉</h2>
+    <div class="signature">Designed &amp; Developed with ❤️<br>By Muhammad Waqas 💻</div>
+    <button id="surpriseButton" onclick="celebrateAgain()">🎉 CELEBRATE AGAIN!</button>
+    <p class="footer">Wishing you endless happiness! 💙</p>
+  </div>
+</div>
+<script>
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+let pieces=[];
+let animationRunning=false;
+let celebrationTimer=null;
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+window.addEventListener("resize",resizeCanvas);resizeCanvas();
+function openGift(){
+  const button=document.getElementById("giftButton");
+  button.disabled=true;
+  button.textContent="⏳ OPENING YOUR GIFT...";
+  setTimeout(()=>{
+    document.getElementById("welcome").style.display="none";
+    const surprise=document.getElementById("surprise");
+    surprise.style.display="block";
+    surprise.style.animation="appear .8s ease";
+    document.title="Happy Birthday Waseem Akram! 🎂";
+    startConfetti();
+  },1200);
+}
+function startConfetti(){
+  pieces=[];
+  for(let i=0;i<180;i++){
+    pieces.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height-canvas.height,
+      size:Math.random()*7+3,
+      speed:Math.random()*3+2,
+      color:["#facc15","#60a5fa","#f472b6","#4ade80","#c084fc","#fb923c"][Math.floor(Math.random()*6)],
+      rotation:Math.random()*360,
+      rotationSpeed:Math.random()*8-4
+    });
+  }
+  if(!animationRunning){animationRunning=true;animateConfetti()}
+  clearTimeout(celebrationTimer);
+  celebrationTimer=setTimeout(()=>{pieces=[]},8000);
+}
+function animateConfetti(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pieces.forEach(p=>{
+    ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rotation*Math.PI/180);ctx.fillStyle=p.color;
+    ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*.65);ctx.restore();
+    p.y+=p.speed;p.x+=Math.sin(p.y/35);p.rotation+=p.rotationSpeed;
+    if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width}
+  });
+  if(pieces.length>0){requestAnimationFrame(animateConfetti)}
+  else{ctx.clearRect(0,0,canvas.width,canvas.height);animationRunning=false}
+}
+function celebrateAgain(){
+  startConfetti();
+  const cake=document.querySelector(".cake");
+  cake.style.animation="none";void cake.offsetWidth;cake.style.animation="cakePop 1s ease";
+}
+</script>
+</body>
+</html>
